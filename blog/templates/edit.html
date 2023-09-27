@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+</head>
+<body>
+    
+    <h1>Edit Product Section</h1>
+    <hr>
+    {% for x in data %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <tabel>
+            <tr>
+                <th>Product Name:</th>
+                <td><input type="text" name="pname" value="{{x.name}}"></td>
+            </tr>
+            <br><br>
+            <tr>
+                <th>Category:</th>
+                <td>
+                    <select name="cat">
+                        {% if x.cat == '1' %}
+                        <option value="1">Mobile</option>
+                        {% elif x.cat == '2' %}
+                        <option value="2">Cloths</option>
+                        {% else %}
+                        <option value="3">shoes</option>
+                        {% endif %}
+                        <option value="1">Mobile</option>
+                        <option value="2">Cloths</option>
+                        <option value="3">shoes</option>
+
+                    </select>
+                </td> <br><br>
+            </tr>
+                    <tr>
+
+                        <th>Price:</th>
+                        <td><input type="number" name="amt" value="{{x.price}}"></td>
+                    </tr> <br><br>
+               <tr> 
+                <th>Status:</th>
+                <td>
+                    {% if x.status == '1' %}
+                    <input type="radio" name="status" value="1" checked>Active
+                    <input type="radio" name="status" value="0">InActive
+                    {% else %}
+                    <input type="radio" name="status" value="1" >Active
+                    <input type="radio" name="status" value="0" checked>InActive
+                    {% endif %}
+                </td>
+
+               </tr>
+
+               <tr><br>
+                <td>
+                    <button type="submit">Update</button><br><br>
+                </td>
+            </tr> 
+        </tabel>
+
+    </form>
+    {% endfor %}
+</body>
+</html>

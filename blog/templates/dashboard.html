@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>Dashboard</title>
+</head>
+<body>
+    <h1 class='text-center  text-primary'>Welcome to the sellers dashboard</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <a href='addproduct' class="btn btn-success">Add new product</a>
+                <table class="table table-bordered text-center">
+                <thead>
+                    <th>Sr.No</th>
+                    <th>Product_name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                {% for x in data %}
+                    <tr>
+                       <td> {{x.id}}</td>
+                       <td> {{x.name}}</td>
+
+                        {% if x.cat == '1' %}
+                            <td>Mobile</td>
+                        {% elif x.cat == '2' %}
+                            <td>Cloths</td>
+                        {% else %}
+                            <td>shoes</td>
+                        {% endif %}
+
+                    </td>
+
+                       <td> {{x.price}}</td>
+            
+                        {% if x.status == '1' %}
+                            <td>Active</td>
+                        {% else %}
+                            <td>Inactive</td>
+                        {% endif %}
+                       <td> <a href="Edit/{{x.id}}">Edit</a></td>
+                       <td> <a href="delete/{{x.id}}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+                <div>
+                <h2>Filter by Status</h2>
+                <p><a href="/dashboard">All</a></p>
+                <p><a href="/statusfilter/1">Active</a></p>
+                <p><a href="/statusfilter/0">InActive</a></p>
+            </div>
+            <div>
+                <h2>Filter by Category</h2>
+                <p><a href="/dashboard">All</a></p>
+                <p><a href="/catfilter/1">Mobile</a></p>
+                <p><a href="/catfilter/2">Clothes</a></p>
+                <p><a href="/catfilter/3">shoes</a></p>
+            </div>
+            <div>
+                <h2>Sort by Price</h2>
+                <p><a href="/sort/1">High to Low</a></p>
+                <p><a href="/sort/0">Low to High</a></p>
+            </div>
+
+            <div>
+                <h2>Filter by Price</h2>
+                <p><a href="/filprice/1"> > 13000</a></p>
+                <p><a href="/filprice/2"> < 13000</a></p>
+            </div>
+            <!--<div>
+                <h2>Search by names</h2>
+                <input type="text"  name="search">
+                <button type="button">Search</button>
+            </div> -->
+            <hr>
+            <div>
+            <form method="POST" action="/multifilter">
+                {% csrf_token %}
+                <h2>Filter by category</h2>
+                <p><input type="radio" name="category" value="1" id="">Mobile</p>
+                <p><input type="radio" name="category" value="2" id="">Clothes</p>
+                <p><input type="radio" name="category" value="3" id="">shoes</p>
+                <h2>Filter by status</h2>
+                <p><input type="radio" name="status" value="1" id="">Active</p>
+                <p><input type="radio" name="status" value="0" id="">Inactive</p>
+
+                <h2>Filter by price</h2>
+                <p><input type="radio" name="amt" value="1" id=""> > 13000</p>
+                <p><input type="radio" name="amt" value="0" id=""> < 13000 </p>
+                <input type="submit" value="Apply">
+            </form>
+        </div>
+
+
+</body>
+</body>
+</html>
